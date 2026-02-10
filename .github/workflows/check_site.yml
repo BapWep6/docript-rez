@@ -22,8 +22,12 @@ jobs:
       - name: Send Notification
         if: steps.check_site.outcome == 'failure'
         run: |
-          curl -d "🚨 Le site Docript est DOWN ! (Status: ${{ steps.check_site.outputs.status }})" \
-          https://ntfy.sh/site_docript_bapwep_098465874995322647821154477885
+          curl \
+            -H "Title: ALERTE SÉCURITÉ - DOCRIPT" \
+            -H "Priority: urgent" \
+            -H "Tags: warning,skull" \
+            -d "Le site est DOWN ! (Status: ${{ steps.check_site.outputs.status }})" \
+            https://ntfy.sh/site_docript_bapwep_098465874995322647821154477885
 
       - name: Success
         if: steps.check_site.outcome == 'success'
