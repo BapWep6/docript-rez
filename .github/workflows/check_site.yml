@@ -1,7 +1,7 @@
 name: Monitor Docript
 on:
   schedule:
-    - cron: '*/5 * * * *' # Vérification toutes les 5 min
+    - cron: '*/1 * * * *' # Vérification toutes les 5 min
   workflow_dispatch:      # Permet de lancer manuellement
 
 jobs:
