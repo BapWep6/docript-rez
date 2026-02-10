@@ -22,8 +22,9 @@ jobs:
       - name: Send Notification
         if: steps.check_site.outcome == 'failure'
         run: |
-          echo "Status: ${{ steps.check_site.outputs.status }}"
-          # Insérez votre commande d'alerte ici
+          curl -X POST -H "Content-Type: application/json" \
+          -d "{\"content\": \"🚨 **ALERTE** : Le site Docript est DOWN ! \nStatus: ${{ steps.check_site.outputs.status }}\"}" \
+          "VOTRE_URL_WEBHOOK_ICI"
 
       - name: Success
         if: steps.check_site.outcome == 'success'
