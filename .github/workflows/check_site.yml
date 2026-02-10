@@ -1,0 +1,16 @@
+name: Monitor Docript
+on:
+  schedule:
+    - cron: '*/5 * * * *' # Vérification toutes les 5 min
+  workflow_dispatch:      # Permet de lancer manuellement
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Site Status
+        run: |
+          STATUS=$(curl -o /dev/null -s -w "%{http_code}" https://docript.fr)
+          if [ "$STATUS" -ne 200 ]; then
+            curl -d "ALERTE : Ton site est DOWN (Code $STATUS) !" ntfy.sh/site_docript_bapwep_098465874995322647821154477885
+          fi
